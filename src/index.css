@@ -1,0 +1,85 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------ *
+ * Design tokens. Status colours follow the brief:
+ *   green  = confirmed success / refunded
+ *   amber  = pending / processing
+ *   red    = failure or genuine problem (overdue, failed)
+ * Status is NEVER conveyed by colour alone — every pill/step also
+ * carries an icon + text label.
+ * ------------------------------------------------------------------ */
+@theme {
+  --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+
+  --color-ink: #1f1f1f;        /* primary text */
+  --color-ink-soft: #5f6368;   /* secondary text */
+  --color-ink-faint: #80868b;  /* tertiary / captions */
+  --color-line: #e8eaed;       /* neutral dividers */
+  --color-surface: #ffffff;
+  --color-canvas: #f1f3f4;     /* app background behind the phone */
+
+  /* success / green */
+  --color-ok: #137333;
+  --color-ok-soft: #e6f4ea;
+  /* pending / amber */
+  --color-wait: #b06000;
+  --color-wait-soft: #feefc3;
+  --color-wait-line: #f9d77a;
+  /* failure / red */
+  --color-bad: #c5221f;
+  --color-bad-soft: #fce8e6;
+  /* accent (primary action) — a calm blue, not Google's brand mark */
+  --color-accent: #1a73e8;
+  --color-accent-soft: #e8f0fe;
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  background: var(--color-canvas);
+  color: var(--color-ink);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Hide scrollbars inside the phone screen while keeping scroll. */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+@keyframes sheet-up {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes screen-in {
+  from { opacity: 0; transform: translateX(12px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+.animate-sheet-up { animation: sheet-up 0.26s cubic-bezier(0.22, 1, 0.36, 1); }
+.animate-fade-in { animation: fade-in 0.2s ease-out; }
+.animate-screen-in { animation: screen-in 0.22s ease-out; }
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-sheet-up,
+  .animate-fade-in,
+  .animate-screen-in { animation: none; }
+}

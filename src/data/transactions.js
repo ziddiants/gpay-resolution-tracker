@@ -243,6 +243,8 @@ export function getScenario(txn) {
           body:
             'The refund should have arrived by now. You can raise a dispute, and the bank is required to respond. ' +
             'If it still isn’t resolved, a compensation of ₹100 per day of delay may apply.',
+          note:
+            'Sample timeline — real RBI/NPCI dispute and compensation rules apply. Verify before launch.',
           info: 'If this stays unresolved, you can escalate to the RBI Banking Ombudsman after 30 days.',
           infoLabel: 'What are my options?',
         },

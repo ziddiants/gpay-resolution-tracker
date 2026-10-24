@@ -4,7 +4,7 @@ import InfoHint from './InfoHint.jsx'
 // The "when should I expect an update/refund" card — the answer to question 2.
 // Big date first, then the plain-language reason. An optional (i) info button
 // reveals the regulatory basis on tap, instead of always-on fine print.
-export default function ExpectUpdateCard({ tone = 'wait', label, big, small, body, info, infoLabel, infoTitle }) {
+export default function ExpectUpdateCard({ tone = 'wait', label, big, small, body, note, info, infoLabel, infoTitle }) {
   const t = toneClasses[tone] || toneClasses.wait
   return (
     <section
@@ -19,6 +19,7 @@ export default function ExpectUpdateCard({ tone = 'wait', label, big, small, bod
       <p className="mt-1 text-2xl font-bold text-ink">{big}</p>
       {small && <p className={`mt-0.5 text-[13px] font-medium ${t.text}`}>{small}</p>}
       {body && <p className="mt-2.5 text-[14px] leading-relaxed text-ink-soft">{body}</p>}
+      {note && <p className="mt-2.5 text-[12px] leading-snug text-ink-faint">{note}</p>}
     </section>
   )
 }

@@ -11,6 +11,9 @@ order, within ~10 seconds:
 Built for a **product case study**. This is a design prototype, not a real
 product, and is **not affiliated with, endorsed by, or connected to Google**.
 
+**Live demo:** https://ziddiants.github.io/gpay-resolution-tracker/ — best viewed
+on a phone, or at a narrow browser width.
+
 > ⚠️ **All data is fictional and illustrative.** No real transactions, banks,
 > accounts, people or reference numbers. The app never reads live bank status
 > and never asks for a UPI PIN, OTP, password or any sensitive credential.
@@ -65,7 +68,16 @@ npm run build    # production build into dist/
 npm run preview  # serve the production build locally to sanity-check it
 ```
 
-## Publish to GitHub Pages
+## Deployment
+
+**Already live** at https://ziddiants.github.io/gpay-resolution-tracker/.
+
+Pages is set to **Source: GitHub Actions**, and the workflow
+(`.github/workflows/deploy.yml`) rebuilds and redeploys on **every push to
+`main`** — watch each run under the repo's **Actions** tab. No manual build or
+upload needed.
+
+### Reproducing this on a fresh repo
 
 Deployment runs under **your** GitHub account — you run these steps.
 
@@ -76,16 +88,14 @@ Deployment runs under **your** GitHub account — you run these steps.
    git branch -M main
    gh repo create gpay-resolution-tracker --public --source=. --remote=origin --push
    ```
-   (Or create the repo on github.com and `git remote add origin … && git push -u origin main`.)
+2. **Enable Pages (Actions source):** **Settings → Pages → Build and deployment →
+   Source: GitHub Actions** (or `gh api -X POST repos/<owner>/<repo>/pages -f build_type=workflow`).
+3. Push to `main`; the workflow builds and deploys. The site then lives at
+   **`https://<your-username>.github.io/gpay-resolution-tracker/`**.
 
-2. **Turn on Pages via Actions:** repo **Settings → Pages → Build and
-   deployment → Source: GitHub Actions**.
-
-3. The included workflow (`.github/workflows/deploy.yml`) builds and deploys on
-   every push to `main`. Watch it finish under the repo's **Actions** tab.
-
-4. Once the run succeeds, your site is live at:
-   **`https://<your-username>.github.io/gpay-resolution-tracker/`**
+> **Gotcha:** the push includes `.github/workflows/deploy.yml`, so your `gh`
+> token needs the `workflow` scope. If the push is rejected, run
+> `gh auth refresh -h github.com -s workflow` once, then push again.
 
 > If you use a different repo name, update `base` in `vite.config.js` to
 > `'/<your-repo-name>/'`. For a user/org root site or a custom domain, set it to `'/'`.
@@ -94,7 +104,7 @@ Deployment runs under **your** GitHub account — you run these steps.
 
 ```
 src/
-  App.jsx                 navigation state, scenario switch, loading, overlays
+  App.jsx                 navigation state, loading, overlays
   data/transactions.js    single source of truth for all sample data + copy
   components/             PhoneFrame, StatusPill, TimelineStep, ExpectUpdateCard,
                           ActionButton, BottomSheet, LoadingSkeleton, AppBar,
